@@ -28,8 +28,6 @@ public class Controller : MonoBehaviour
     {
         Debug.Log(userGuess.text.ToString());
         bool valid = model.GetComponent<Model>().isValidGuess(userGuess.text.ToString());
-        /*string correctAnswer = model.GetComponent<Model>().CorrectAnswer;
-        int currentAttempt = model.GetComponent<Model>().CurrentAttempt;*/
 
         if (valid)
         {
@@ -46,7 +44,7 @@ public class Controller : MonoBehaviour
                 }
                 else
                 {
-                    view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt);
+                    view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt, correctAnswer);
                     currentAttempt++;
                 }
             }

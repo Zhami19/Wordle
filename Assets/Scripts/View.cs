@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class View : MonoBehaviour
 {
@@ -18,15 +19,29 @@ public class View : MonoBehaviour
         
     }
 
-    public void UpdateView(string userGuess, int attempt)
+    public void UpdateView(string userGuess, int attempt, string correctAnswer)
     {
-        char[] letters = userGuess.ToCharArray();
+        char[] userLetters = userGuess.ToCharArray();
+        char[] correctAnswerLetters = correctAnswer.ToCharArray();
+        Transform panel = verticalLayout.transform.GetChild(attempt);
 
-        //verticalLayout.transform.GetChild(0).GetChild(0).GetComponentInChildren<TMP_Text>().text = letters[0].ToString();
         for (int i = 0; i < 5; i++)
         {
-            Debug.Log("UpdateView is called; it is attempt " + attempt + " and letter " + letters[i].ToString());
-            verticalLayout.transform.GetChild(attempt).GetChild(i).GetComponentInChildren<TMP_Text>().text = letters[i].ToString();
+            Debug.Log("UpdateView is called; it is attempt " + attempt + " and letter " + userLetters[i].ToString());
+            panel.GetChild(i).GetComponentInChildren<TMP_Text>().text = userLetters[i].ToString();
+
+            if (String.Equals(panel.GetChild(i).GetComponentInChildren<TMP_Text>().text, correctAnswerLetters[i].ToString()))
+            {
+                panel.GetChild(i).GetComponent<Image>().color = Color.green;
+            }
+            else if (correctAnswer.Contains(userLetters[i].ToString()))
+            {
+                panel.GetChild(i).GetComponent<Image>().color = Color.yellow;
+            }
+            else
+            {
+                panel.GetChild(i).GetComponent<Image>().color = Color.grey;
+            }
         }
     }
 }
