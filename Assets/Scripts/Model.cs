@@ -10,7 +10,7 @@ public class Model : MonoBehaviour
 
     int[,] grid = new int[6, 5];
 
-    private int currentAttempt = 5;
+    private int currentAttempt = 0;
     private string correctAnswer;
 
     string[] allowedWords;
@@ -29,7 +29,7 @@ public class Model : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        Setup();
         
     }
 
@@ -49,13 +49,15 @@ public class Model : MonoBehaviour
 
     public bool isValidGuess(string userGuess)
     {
-        if (allowedWords.Contains(userGuess))
+        foreach (string word in allowedWords)
         {
-            return true;
+            if (word.Contains(userGuess))
+            {
+                Debug.Log("valid word");
+                return true;
+            }
         }
-        else
-        {
-            return false;
-        }
+        Debug.Log("invalid word");
+        return false;
     }
 }

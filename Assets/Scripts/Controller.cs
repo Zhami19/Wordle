@@ -20,29 +20,30 @@ public class Controller : MonoBehaviour
         
     }
 
-    void SubmitGuess()
+    public void SubmitGuess()
     {
-        bool valid = model.GetComponent<Model>().isValidGuess(userGuess.ToString());
+        Debug.Log(userGuess.text.ToString());
+        bool valid = model.GetComponent<Model>().isValidGuess(userGuess.text.ToString());
         string correctAnswer = model.GetComponent<Model>().CorrectAnswer;
         int currentAttempt = model.GetComponent<Model>().CurrentAttempt;
 
         if (valid)
         {
             //Handle/update view
-            if (string.Equals(userGuess, correctAnswer))
+            if (string.Equals(userGuess.text.ToString(), correctAnswer))
             {
                 WinGame();
             }
             else
             {
-                if (currentAttempt == 0)
+                if (currentAttempt == 5)
                 {
                     LoseGame();
                 }
                 else
                 {
-                    currentAttempt--;
-                    //Continue playing
+                    currentAttempt++;
+                    view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt);
                 }
             }
         }
