@@ -1040,7 +1040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48dec2d208b292b4d89f9cf89e3de5ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalLayout: {fileID: 573883549}
+  verticalLayout: {fileID: 573883551}
 --- !u!4 &115830476
 Transform:
   m_ObjectHideFlags: 0

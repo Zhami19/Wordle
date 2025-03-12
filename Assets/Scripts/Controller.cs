@@ -8,10 +8,14 @@ public class Controller : MonoBehaviour
     [SerializeField] Model model;
     [SerializeField] View view;
 
+    string correctAnswer;
+    int currentAttempt;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-       
+        correctAnswer = model.GetComponent<Model>().CorrectAnswer;
+        currentAttempt = model.GetComponent<Model>().CurrentAttempt;
     }
 
     // Update is called once per frame
@@ -24,8 +28,8 @@ public class Controller : MonoBehaviour
     {
         Debug.Log(userGuess.text.ToString());
         bool valid = model.GetComponent<Model>().isValidGuess(userGuess.text.ToString());
-        string correctAnswer = model.GetComponent<Model>().CorrectAnswer;
-        int currentAttempt = model.GetComponent<Model>().CurrentAttempt;
+        /*string correctAnswer = model.GetComponent<Model>().CorrectAnswer;
+        int currentAttempt = model.GetComponent<Model>().CurrentAttempt;*/
 
         if (valid)
         {
@@ -36,14 +40,14 @@ public class Controller : MonoBehaviour
             }
             else
             {
-                if (currentAttempt == 5)
+                if (currentAttempt == 6)
                 {
                     LoseGame();
                 }
                 else
                 {
-                    currentAttempt++;
                     view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt);
+                    currentAttempt++;
                 }
             }
         }

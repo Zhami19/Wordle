@@ -44,7 +44,8 @@ public class Model : MonoBehaviour
         allowedWords = allowedWordsText.ToString().Split('\n');
         possibleWords = possibleWordsText.ToString().Split("\n");
 
-        correctAnswer = possibleWords[Random.Range(0, possibleWords.Length)];
+        //correctAnswer = possibleWords[Random.Range(0, possibleWords.Length)];
+        correctAnswer = "child";
     }
 
     public bool isValidGuess(string userGuess)
