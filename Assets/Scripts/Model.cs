@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Model : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Model : MonoBehaviour
 
     string[] allowedWords;
     string[] possibleWords;
-
+    List<string> usedWords = new List<string>();
     public int CurrentAttempt
     {
         get { return currentAttempt; }
@@ -29,8 +30,7 @@ public class Model : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Setup();
-        
+        Setup(); 
     }
 
     // Update is called once per frame
@@ -41,24 +41,41 @@ public class Model : MonoBehaviour
 
     void Setup()
     {
+        //List<string> usedWords = new List<string>();
+
         allowedWords = allowedWordsText.ToString().Split('\n');
         possibleWords = possibleWordsText.ToString().Split("\n");
+        usedWords.Clear();
 
-        //correctAnswer = possibleWords[Random.Range(0, possibleWords.Length)];
-        correctAnswer = "child";
+        correctAnswer = possibleWords[Random.Range(0, possibleWords.Length)];
+        Debug.Log(correctAnswer);
     }
 
     public bool isValidGuess(string userGuess)
     {
-        foreach (string word in allowedWords)
+        foreach (string guess in usedWords)
         {
-            if (word.Contains(userGuess))
+            if (guess.Contains(userGuess))
             {
-                Debug.Log("valid word");
-                return true;
+                Debug.Log("Already guessed this word");
+                return false;
             }
         }
-        Debug.Log("invalid word");
+
+        usedWords.Add(userGuess);
+
+        if (userGuess.Length == 5)
+        {
+            Debug.Log("Has counted 5 letters");
+            foreach (string word in allowedWords)
+            {
+                if (word.Contains(userGuess))
+                {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 }

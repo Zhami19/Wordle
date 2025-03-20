@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Controller : MonoBehaviour
 {
@@ -7,6 +8,11 @@ public class Controller : MonoBehaviour
 
     [SerializeField] Model model;
     [SerializeField] View view;
+    public enum endOfGameState
+    {
+        win,
+        lose
+    }
 
     string correctAnswer;
     int currentAttempt;
@@ -21,47 +27,60 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (currentAttempt == 6)
+        {
+            LoseGame();
+        }
     }
 
     public void SubmitGuess()
     {
-        Debug.Log(userGuess.text.ToString());
         bool valid = model.GetComponent<Model>().isValidGuess(userGuess.text.ToString());
 
         if (valid)
         {
             //Handle/update view
-            if (string.Equals(userGuess.text.ToString(), correctAnswer))
+            Debug.Log("Valid Word");
+            Debug.Log("The user's guess is " + userGuess.text);
+            Debug.Log("The correct answer is " + correctAnswer);
+            Debug.Log("Are they equal? " + string.Compare(userGuess.text.Trim(), correctAnswer.Trim()));
+
+            if (string.Compare(userGuess.text.Trim(), correctAnswer.Trim()) == 0)
             {
+                Debug.Log("You win");
+                view.GetComponent<View>().UpdateView(userGuess.text, currentAttempt, correctAnswer);
                 WinGame();
             }
             else
             {
-                if (currentAttempt == 6)
-                {
-                    LoseGame();
-                }
-                else
-                {
-                    view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt, correctAnswer);
-                    currentAttempt++;
-                }
+                Debug.Log("Word does not match");
+                view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt, correctAnswer);
+                currentAttempt++;
             }
         }
         else
         {
-            //Let player know it is not valid
+            Debug.Log("Invalid guess");
         }
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(0);
     }
 
     void WinGame()
     {
-        //Load Win Scene
+        view.EndOfGame(correctAnswer);
+        view.WinLoseText(endOfGameState.win);
+
+        Debug.Log("You win 2");
     }
 
     void LoseGame()
     {
-        //Load Lose Scene
+        view.EndOfGame(correctAnswer);
+        view.WinLoseText(endOfGameState.lose);   
+        Debug.Log("You lose");
     }
 }
