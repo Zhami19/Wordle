@@ -12,11 +12,17 @@ public class View : MonoBehaviour
     [SerializeField] TMP_Text correctAnswerText;
     [SerializeField] TMP_Text WLText;
 
+    string part1;
+    string part2;
+    string part3;
+    string part4;
+    string part5;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -39,16 +45,76 @@ public class View : MonoBehaviour
             if (String.Equals(panel.GetChild(i).GetComponentInChildren<TMP_Text>().text, correctAnswerLetters[i].ToString()))
             {
                 panel.GetChild(i).GetComponent<Image>().color = Color.green;
+
+                switch (i)
+                {
+                    case 0:
+                        part1 = "<color=green>" + userLetters[i] + "</color>";
+                        break;
+                    case 1:
+                        part2 = "<color=green>" + userLetters[i] + "</color>";
+                        break;
+                    case 2:
+                        part3 = "<color=green>" + userLetters[i] + "</color>";
+                        break;
+                    case 3:
+                        part4 = "<color=green>" + userLetters[i] + "</color>";
+                        break;
+                    case 4:
+                        part5 = "<color=green>" + userLetters[i] + "</color>";
+                        break;
+                }
             }
             else if (correctAnswer.Contains(userLetters[i].ToString()))
             {
                 panel.GetChild(i).GetComponent<Image>().color = Color.yellow;
+
+                switch (i)
+                {
+                    case 0:
+                        part1 = "<color=yellow>" + userLetters[i] + "</color>";
+                        break;
+                    case 1:
+                        part2 = "<color=yellow>" + userLetters[i] + "</color>";
+                        break;
+                    case 2:
+                        part3 = "<color=yellow>" + userLetters[i] + "</color>";
+                        break;
+                    case 3:
+                        part4 = "<color=yellow>" + userLetters[i] + "</color>";
+                        break;
+                    case 4:
+                        part5 = "<color=yellow>" + userLetters[i] + "</color>";
+                        break;
+                }
             }
             else
             {
                 panel.GetChild(i).GetComponent<Image>().color = Color.grey;
+
+                switch (i)
+                {
+                    case 0:
+                        part1 = "<color=grey>" + userLetters[i] + "</color>";
+                        break;
+                    case 1:
+                        part2 = "<color=grey>" + userLetters[i] + "</color>";
+                        break;
+                    case 2:
+                        part3 = "<color=grey>" + userLetters[i] + "</color>";
+                        break;
+                    case 3:
+                        part4 = "<color=grey>" + userLetters[i] + "</color>";
+                        break;
+                    case 4:
+                        part5 = "<color=grey>" + userLetters[i] + "</color>";
+                        break;
+                }
             }
         }
+
+        string coloredWord = part1 + part2 + part3 + part4 + part5;
+        Debug.Log(coloredWord);
     }
 
     public void EndOfGame(string correctAnswer)
@@ -63,7 +129,6 @@ public class View : MonoBehaviour
 
         correctAnswerText.enabled = true;
         WLText.enabled = true;
-        Debug.Log("Texts have been enabled");
 
         switch (state)
         {

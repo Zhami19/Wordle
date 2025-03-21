@@ -66,7 +66,6 @@ public class Model : MonoBehaviour
 
         if (userGuess.Length == 5)
         {
-            Debug.Log("Has counted 5 letters");
             foreach (string word in allowedWords)
             {
                 if (word.Contains(userGuess))

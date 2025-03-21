@@ -30,6 +30,7 @@ public class Controller : MonoBehaviour
         if (currentAttempt == 6)
         {
             LoseGame();
+            currentAttempt = -1;
         }
     }
 
@@ -39,21 +40,13 @@ public class Controller : MonoBehaviour
 
         if (valid)
         {
-            //Handle/update view
-            Debug.Log("Valid Word");
-            Debug.Log("The user's guess is " + userGuess.text);
-            Debug.Log("The correct answer is " + correctAnswer);
-            Debug.Log("Are they equal? " + string.Compare(userGuess.text.Trim(), correctAnswer.Trim()));
-
             if (string.Compare(userGuess.text.Trim(), correctAnswer.Trim()) == 0)
             {
-                Debug.Log("You win");
                 view.GetComponent<View>().UpdateView(userGuess.text, currentAttempt, correctAnswer);
                 WinGame();
             }
             else
             {
-                Debug.Log("Word does not match");
                 view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt, correctAnswer);
                 currentAttempt++;
             }
@@ -71,14 +64,15 @@ public class Controller : MonoBehaviour
 
     void WinGame()
     {
+        Debug.Log("The word is " + correctAnswer);
         view.EndOfGame(correctAnswer);
         view.WinLoseText(endOfGameState.win);
-
-        Debug.Log("You win 2");
+        Debug.Log("You win!");
     }
 
     void LoseGame()
     {
+        Debug.Log("The word is " + correctAnswer);
         view.EndOfGame(correctAnswer);
         view.WinLoseText(endOfGameState.lose);   
         Debug.Log("You lose");
