@@ -48,27 +48,26 @@ public class Model : MonoBehaviour
         usedWords.Clear();
 
         correctAnswer = possibleWords[Random.Range(0, possibleWords.Length)];
-        Debug.Log(correctAnswer);
     }
 
     public bool isValidGuess(string userGuess)
     {
         foreach (string guess in usedWords)
         {
-            if (guess.Contains(userGuess))
+            if (guess.Contains(userGuess.ToLower()))
             {
-                Debug.Log("Already guessed this word");
+                Debug.Log("You already guessed this word.");
                 return false;
             }
         }
 
-        usedWords.Add(userGuess);
+        usedWords.Add(userGuess.ToLower());
 
         if (userGuess.Length == 5)
         {
             foreach (string word in allowedWords)
             {
-                if (word.Contains(userGuess))
+                if (word.Contains(userGuess.ToLower()))
                 {
                     return true;
                 }

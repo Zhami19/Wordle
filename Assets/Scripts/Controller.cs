@@ -40,20 +40,20 @@ public class Controller : MonoBehaviour
 
         if (valid)
         {
-            if (string.Compare(userGuess.text.Trim(), correctAnswer.Trim()) == 0)
+            if (string.Compare(userGuess.text.ToLower().Trim(), correctAnswer.Trim()) == 0)
             {
-                view.GetComponent<View>().UpdateView(userGuess.text, currentAttempt, correctAnswer);
+                view.GetComponent<View>().UpdateView(userGuess.text.ToLower(), currentAttempt, correctAnswer);
                 WinGame();
             }
             else
             {
-                view.GetComponent<View>().UpdateView(userGuess.text.ToString(), currentAttempt, correctAnswer);
+                view.GetComponent<View>().UpdateView(userGuess.text.ToString().ToLower(), currentAttempt, correctAnswer);
                 currentAttempt++;
             }
         }
         else
         {
-            Debug.Log("Invalid guess");
+            Debug.Log("Invalid guess.");
         }
     }
 
@@ -64,7 +64,7 @@ public class Controller : MonoBehaviour
 
     void WinGame()
     {
-        Debug.Log("The word is " + correctAnswer);
+        Debug.Log("The word is: " + correctAnswer + ".");
         view.EndOfGame(correctAnswer);
         view.WinLoseText(endOfGameState.win);
         Debug.Log("You win!");
@@ -72,9 +72,9 @@ public class Controller : MonoBehaviour
 
     void LoseGame()
     {
-        Debug.Log("The word is " + correctAnswer);
+        Debug.Log("The word is: " + correctAnswer + ".");
         view.EndOfGame(correctAnswer);
         view.WinLoseText(endOfGameState.lose);   
-        Debug.Log("You lose");
+        Debug.Log("You lose.");
     }
 }

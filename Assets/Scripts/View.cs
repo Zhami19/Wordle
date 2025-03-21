@@ -121,7 +121,7 @@ public class View : MonoBehaviour
     {
         submitButton.SetActive(false);
         playAgainButton.SetActive(true);
-        correctAnswerText.text = "The word is " + correctAnswer;
+        correctAnswerText.text = "The word is: " + correctAnswer + ".";
     }
 
     public void WinLoseText(Controller.endOfGameState state)
